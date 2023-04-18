@@ -1,12 +1,6 @@
-[![Build Status](https://travis-ci.org/hisptz/ngx-seed-app.svg?branch=master)](https://travis-ci.org/hisptz/ngx-seed-app)
-[![dependencies Status](https://status.david-dm.org/gh/dhis2-club-tanzania/dhis2-angular-boilerplate.svg)](https://david-dm.org/dhis2-club-tanzania/dhis2-angular-boilerplate)
-[![devDependencies Status](https://status.david-dm.org/gh/dhis2-club-tanzania/dhis2-angular-boilerplate.svg?type=dev)](https://david-dm.org/dhis2-club-tanzania/dhis2-angular-boilerplate?type=dev)
-[![Maintainability](https://api.codeclimate.com/v1/badges/c1e6408bb367ed969f71/maintainability)](https://codeclimate.com/github/dhis2-club-tanzania/dhis2-angular-boilerplate/maintainability)
-[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+# Angular DHIS2 Electronic Document Management(edm) app
 
-# Angular DHIS2 based seed app
-
-Boilerplate codes to fast track developing DHIS2 applications based on Angular framework
+DHIS2 based EDM app
 
 ## Prerequisites
 
@@ -19,13 +13,13 @@ Boilerplate codes to fast track developing DHIS2 applications based on Angular f
 Clone repository
 
 ```bash
- git clone https://github.com/dhis2-club-tanzania/dhis2-angular-boilerplate.git
+ git clone git@github.com:You-Deserve-IT-Solutions/dhis2-edm.git
 ```
 
 Navigate to application root folder
 
 ```bash
-cd dhis2-angular-boilerplate
+cd dhis2-edm
 ```
 
 Install all required dependencies for the app
@@ -40,20 +34,20 @@ To start development server
 
 `npm start`
 
-Navigate to [http://localhost:4200](http://localhost:4200).
+Navigate to [http://localhost:3000](http://localhost:3000).
 
 This command will require proxy-config.json file available in the root of your source code, usually this file has this format
 
 ```json
 {
   "/api": {
-    "target": "https://play.dhis2.org/2.36/",
+    "target": "https://play.dhis2.org/2.39.1.2/",
     "secure": "false",
     "auth": "admin:district",
     "changeOrigin": "true"
   },
   "/": {
-    "target": "https://play.dhis2.org/2.36/",
+    "target": "https://play.dhis2.org/2.39.1.2/",
     "secure": "false",
     "auth": "admin:district",
     "changeOrigin": "true"

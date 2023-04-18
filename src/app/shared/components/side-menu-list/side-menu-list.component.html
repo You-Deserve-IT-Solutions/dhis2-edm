@@ -1,0 +1,25 @@
+<div
+  class="side-menu-container w-100"
+  *ngIf="{
+    userDataStoreNameSpaces: userDataStoreNameSpaces$ | async
+  } as params"
+>
+  <div class="h4 mt-2">Folders</div>
+  <mat-progress-bar *ngIf="!params?.userDataStoreNameSpaces"></mat-progress-bar>
+  <ul>
+    <li *ngFor="let menu of params?.userDataStoreNameSpaces">
+      {{ menu }}
+    </li>
+  </ul>
+
+  <div class="d-flex justify-content-end">
+    <button
+      title="New folder"
+      mat-icon-button
+      color="primary"
+      (click)="onAddNewFolder($event)"
+    >
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</div>
