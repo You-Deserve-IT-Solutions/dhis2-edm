@@ -1,0 +1,68 @@
+<div
+  class="row"
+  *ngIf="{
+    allFromNameSpace: allFromNameSpace$ | async
+  } as params"
+>
+  <mat-progress-bar *ngIf="!params?.allFromNameSpace"></mat-progress-bar>
+  <div class="col-12" *ngIf="params?.allFromNameSpace">
+    <div
+      class="h4"
+      *ngIf="
+        params?.allFromNameSpace?.data[0] &&
+        params?.allFromNameSpace?.data[0]?.folderName
+      "
+    >
+      {{ params?.allFromNameSpace?.data[0]?.folderName }}
+    </div>
+    <div
+      *ngIf="
+        params?.allFromNameSpace?.data[0] &&
+        params?.allFromNameSpace?.data[0]?.folderDescription
+      "
+    >
+      <p>{{ params?.allFromNameSpace?.data[0]?.folderDescription }}</p>
+    </div>
+    <div
+      class="row"
+      *ngIf="
+        params?.allFromNameSpace?.data &&
+        params?.allFromNameSpace?.data?.length > 0
+      "
+    >
+      <div
+        class="col-md-2"
+        *ngFor="let subFolder of params?.allFromNameSpace?.data"
+      >
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title> {{ subFolder?.keyName }}</mat-card-title>
+            <mat-card-subtitle>
+              {{ subFolder?.keyNameDescription }}</mat-card-subtitle
+            >
+          </mat-card-header>
+          <mat-card-actions align="end">
+            <button mat-button (click)="onChangeRoute($event, subFolder)">
+              View
+            </button>
+            <!-- <button mat-button>SHARE</button> -->
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+
+    <!-- {{ params?.allFromNameSpace | json }} -->
+  </div>
+  <div class="col-12">
+    <div class="d-flex justify-content-end">
+      <button
+        title="New sub folder"
+        mat-icon-button
+        color="primary"
+        (click)="onAddNewSubFolder($event)"
+      >
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

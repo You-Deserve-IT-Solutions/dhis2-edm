@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { DatastoreService } from 'src/app/core/services/datastore.service';
@@ -16,12 +17,13 @@ export class HomeComponent implements OnInit {
   currentUser$: Observable<any>;
   keys$: Observable<string[]>;
   configurations$: Observable<any>;
-  allFromNameSpace$: Observable<any>;
   currentNameSpace: string;
+  nameSpaceReady: boolean = true;
   constructor(
     private _snackBar: MatSnackBar,
     private store: Store<State>,
-    private datastoreService: DatastoreService
+    private datastoreService: DatastoreService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -40,9 +42,12 @@ export class HomeComponent implements OnInit {
 
   onGetSelectedMenu(menu: any): void {
     this.currentNameSpace = menu;
-    this.allFromNameSpace$ = this.datastoreService.getAllFromNameSpace(
-      'userDataStore/' + this.currentNameSpace
-    );
+    const path = '/' + this.currentNameSpace;
+    this.nameSpaceReady = false;
+    setTimeout(() => {
+      this.nameSpaceReady = true;
+      this.router.navigate([path]);
+    }, 100);
   }
 
   onAddNewSubFolder(event: Event): void {

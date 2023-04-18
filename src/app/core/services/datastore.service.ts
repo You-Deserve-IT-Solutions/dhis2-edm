@@ -117,8 +117,6 @@ export class DatastoreService {
       });
     }
 
-    console.log('keys', keys);
-
     let data = [];
     let errors = {};
 

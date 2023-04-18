@@ -12,6 +12,7 @@ import { NewFolderModalComponent } from '../../modals/new-folder-modal/new-folde
 export class SideMenuListComponent implements OnInit {
   @Input() keys: string[];
   @Input() configurations: any;
+  @Input() currentNameSpace: string;
   userDataStoreNameSpaces$: Observable<any[]>;
   @Output() selectedMenu: EventEmitter<any> = new EventEmitter<any>();
   activeMenu: string;
@@ -29,10 +30,15 @@ export class SideMenuListComponent implements OnInit {
   getUserDataStoreNameSpaces(): void {
     this.userDataStoreNameSpaces$ =
       this.dataStoreService.getUserDataStoreNameSpaces();
-    this.userDataStoreNameSpaces$.subscribe((responses: any[]) => {
-      this.selectedMenu.emit(responses[0]);
-      this.activeMenu = responses[0];
-    });
+    if (!this.currentNameSpace) {
+      this.userDataStoreNameSpaces$.subscribe((responses: any[]) => {
+        this.selectedMenu.emit(responses[0]);
+        this.activeMenu = responses[0];
+      });
+    } else {
+      this.activeMenu = this.currentNameSpace;
+      this.selectedMenu.emit(this.currentNameSpace);
+    }
   }
 
   onSetMenu(event: Event, menu: any): void {

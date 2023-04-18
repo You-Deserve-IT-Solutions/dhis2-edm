@@ -64,6 +64,8 @@ export class NewFolderModalComponent implements OnInit {
       nameSpace: this.formData?.name?.value?.replaceAll(/\s/g, ''),
       key: 'default',
       keyName: 'Default',
+      keyNameDescription: 'Default sub folder',
+      documents: [],
     };
     this.datastoreService.createUserDataStoreKey(data).subscribe((response) => {
       if (response && !response?.error) {

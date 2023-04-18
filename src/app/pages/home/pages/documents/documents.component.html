@@ -1,0 +1,31 @@
+<div class="w-100" *ngIf="{ documents: documents$ | async } as params">
+  <div class="row">
+    <div class="col-12">
+      <button mat-flat-button color="primary" (click)="onBack($event)">
+        <mat-icon class="mr-2">arrow_back</mat-icon>
+        <mat-label>Back To list</mat-label>
+      </button>
+    </div>
+  </div>
+  <mat-progress-bar
+    mode="indeterminate"
+    *ngIf="!params?.documents"
+  ></mat-progress-bar>
+  <div class="row mt-2">
+    <div class="col-12">
+      {{ params?.documents | json }}
+    </div>
+    <div class="col-12">
+      <div class="d-flex justify-content-end">
+        <button
+          title="New sub folder"
+          mat-icon-button
+          color="primary"
+          (click)="onAddResource($event)"
+        >
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
