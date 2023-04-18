@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { DatastoreService } from 'src/app/core/services/datastore.service';
@@ -13,6 +13,8 @@ export class SideMenuListComponent implements OnInit {
   @Input() keys: string[];
   @Input() configurations: any;
   userDataStoreNameSpaces$: Observable<any[]>;
+  @Output() selectedMenu: EventEmitter<any> = new EventEmitter<any>();
+  activeMenu: string;
   constructor(
     private dataStoreService: DatastoreService,
     private dialog: MatDialog
@@ -27,6 +29,16 @@ export class SideMenuListComponent implements OnInit {
   getUserDataStoreNameSpaces(): void {
     this.userDataStoreNameSpaces$ =
       this.dataStoreService.getUserDataStoreNameSpaces();
+    this.userDataStoreNameSpaces$.subscribe((responses: any[]) => {
+      this.selectedMenu.emit(responses[0]);
+      this.activeMenu = responses[0];
+    });
+  }
+
+  onSetMenu(event: Event, menu: any): void {
+    event.stopPropagation();
+    this.selectedMenu.emit(menu);
+    this.activeMenu = menu;
   }
 
   onAddNewFolder(): void {

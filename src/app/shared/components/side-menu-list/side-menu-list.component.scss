@@ -1,0 +1,15 @@
+ul {
+  list-style-type: none !important;
+  margin-left: -16px;
+}
+
+ul li {
+  padding: 8px;
+  margin-left: -16px;
+  cursor: pointer;
+  border-top: solid 1px #eee;
+}
+
+.active-menu {
+  color: #2587cc;
+}

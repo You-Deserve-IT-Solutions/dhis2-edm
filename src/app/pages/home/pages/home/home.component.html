@@ -36,6 +36,7 @@
             <app-side-menu-list
               [keys]="params?.keys"
               [configurations]="params?.configurations"
+              (selectedMenu)="onGetSelectedMenu($event)"
             ></app-side-menu-list>
           </div>
         </div>

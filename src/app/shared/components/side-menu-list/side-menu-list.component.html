@@ -7,7 +7,11 @@
   <div class="h4 mt-2">Folders</div>
   <mat-progress-bar *ngIf="!params?.userDataStoreNameSpaces"></mat-progress-bar>
   <ul>
-    <li *ngFor="let menu of params?.userDataStoreNameSpaces">
+    <li
+      [ngClass]="{ 'active-menu': activeMenu === menu }"
+      (click)="onSetMenu($event, menu)"
+      *ngFor="let menu of params?.userDataStoreNameSpaces"
+    >
       {{ menu }}
     </li>
   </ul>

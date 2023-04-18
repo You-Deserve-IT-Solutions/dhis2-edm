@@ -36,6 +36,10 @@ export class HomeComponent implements OnInit {
     this.showMenuItems = !this.showMenuItems;
   }
 
+  onGetSelectedMenu(menu: any): void {
+    console.log(menu);
+  }
+
   openSnackBar() {
     this._snackBar.open('This is working', 'OK', {
       duration: 2000,
