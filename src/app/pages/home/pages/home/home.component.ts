@@ -16,6 +16,8 @@ export class HomeComponent implements OnInit {
   currentUser$: Observable<any>;
   keys$: Observable<string[]>;
   configurations$: Observable<any>;
+  allFromNameSpace$: Observable<any>;
+  currentNameSpace: string;
   constructor(
     private _snackBar: MatSnackBar,
     private store: Store<State>,
@@ -37,7 +39,15 @@ export class HomeComponent implements OnInit {
   }
 
   onGetSelectedMenu(menu: any): void {
-    console.log(menu);
+    this.currentNameSpace = menu;
+    this.allFromNameSpace$ = this.datastoreService.getAllFromNameSpace(
+      'userDataStore/' + this.currentNameSpace
+    );
+  }
+
+  onAddNewSubFolder(event: Event): void {
+    event.stopPropagation();
+    console.log(this.currentNameSpace);
   }
 
   openSnackBar() {
