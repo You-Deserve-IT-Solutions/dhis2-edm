@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { DatastoreService } from 'src/app/core/services/datastore.service';
+import { DeleteItemModalComponent } from 'src/app/shared/modals/delete-item-modal/delete-item-modal.component';
 import { NewSubFolderModalComponent } from 'src/app/shared/modals/new-sub-folder-modal/new-sub-folder-modal.component';
 
 @Component({
@@ -46,6 +47,24 @@ export class SubFolderComponent implements OnInit {
         data: {
           nameSpace: this.nameSpace,
           allFromNameSpace,
+        },
+      })
+      .afterClosed()
+      .subscribe((shouldReload: boolean) => {
+        if (shouldReload) {
+          this.getAllNameSpaceData();
+        }
+      });
+  }
+
+  onDelete(event: Event, subFolder: any): void {
+    event.stopPropagation();
+    this.dialog
+      .open(DeleteItemModalComponent, {
+        data: {
+          nameSpace: this.nameSpace,
+          subFolder,
+          itemName: subFolder?.keyName,
         },
       })
       .afterClosed()

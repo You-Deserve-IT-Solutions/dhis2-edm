@@ -5,7 +5,7 @@
   } as params"
 >
   <mat-progress-bar *ngIf="!params?.allFromNameSpace"></mat-progress-bar>
-  <div class="col-12" *ngIf="params?.allFromNameSpace">
+  <div class="col-12 mt-2" *ngIf="params?.allFromNameSpace">
     <div
       class="h4"
       *ngIf="
@@ -21,7 +21,9 @@
         params?.allFromNameSpace?.data[0]?.folderDescription
       "
     >
-      <p>{{ params?.allFromNameSpace?.data[0]?.folderDescription }}</p>
+      <p class="text-muted">
+        {{ params?.allFromNameSpace?.data[0]?.folderDescription }}
+      </p>
     </div>
     <div
       class="row"
@@ -31,7 +33,7 @@
       "
     >
       <div
-        class="col-md-2"
+        class="col-md-3 col-sx-12 col-sm-12 mb-2"
         *ngFor="let subFolder of params?.allFromNameSpace?.data"
       >
         <mat-card>
@@ -45,7 +47,13 @@
             <button mat-button (click)="onChangeRoute($event, subFolder)">
               View
             </button>
-            <!-- <button mat-button>SHARE</button> -->
+            <button
+              (click)="onDelete($event, subFolder)"
+              mat-icon-button
+              class="text-muted"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
           </mat-card-actions>
         </mat-card>
       </div>

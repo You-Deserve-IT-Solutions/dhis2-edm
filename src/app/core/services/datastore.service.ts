@@ -49,6 +49,22 @@ export class DatastoreService {
       );
   }
 
+  deleteUserDataStoreKey(nameSpace: string, key: string): Observable<any> {
+    return this.httpClient.delete(`userDataStore/${nameSpace}/${key}`).pipe(
+      map((response: any) => {
+        return response;
+      }),
+      catchError((error) => of(error))
+    );
+  }
+
+  deleteUserDataStoreNameSpace(nameSpace: string): Observable<string[]> {
+    return this.httpClient.get(`userDataStore/${nameSpace}`).pipe(
+      map((response: any) => response),
+      catchError((error: any) => of(error))
+    );
+  }
+
   getUserDataStoreNameSpaces(): Observable<string[]> {
     return this.httpClient.get(`userDataStore`).pipe(
       map((response: any) => response),

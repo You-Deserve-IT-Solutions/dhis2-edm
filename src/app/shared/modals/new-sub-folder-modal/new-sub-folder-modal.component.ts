@@ -83,15 +83,15 @@ export class NewSubFolderModalComponent implements OnInit {
       documents: [],
     };
     this.datastoreService.createUserDataStoreKey(data).subscribe((response) => {
-      if (response && !response?.error) {
+      if (response && response?.status != 'ERROR') {
         this.saving = false;
         this.createFormFields();
         setTimeout(() => {
           this.dialogRef.close(true);
         }, 100);
-      } else if (response && response?.error) {
+      } else {
         this.saving = false;
-        this.error = response?.error;
+        this.error = response;
       }
     });
   }

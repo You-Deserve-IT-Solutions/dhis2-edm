@@ -16,7 +16,7 @@
     <div class="row">
       <div
         [ngClass]="{
-          'col-2': showMenuItems
+          'col-md-2 col-sx-12 col-sm-12': showMenuItems
         }"
         class="side-menu"
         *ngIf="showMenuItems"
@@ -46,8 +46,8 @@
       </div>
       <div
         [ngClass]="{
-          'col-10': showMenuItems,
-          'col-12': !showMenuItems
+          'col-md-10 col-sx-12 col-sm-12': showMenuItems,
+          'col-md-12 col-sx-12 col-sm-12': !showMenuItems
         }"
       >
         <div class="row">
