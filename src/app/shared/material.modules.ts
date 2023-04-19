@@ -19,6 +19,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 export const materialModules = [
   CommonModule,
@@ -40,4 +41,5 @@ export const materialModules = [
   MatIconModule,
   MatDialogModule,
   MatDividerModule,
+  MatProgressSpinnerModule,
 ];

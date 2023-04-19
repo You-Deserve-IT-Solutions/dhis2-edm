@@ -38,6 +38,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.nameSpaceResponse$ = this.datastoreService.createNameSpace();
+    // this.nameSpaceResponse$ = this.datastoreService.createNameSpace();
   }
 }

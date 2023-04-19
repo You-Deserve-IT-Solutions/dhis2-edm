@@ -56,10 +56,11 @@
   <div class="col-12">
     <div class="d-flex justify-content-end">
       <button
+        [disabled]="!params?.allFromNameSpace"
         title="New sub folder"
         mat-icon-button
         color="primary"
-        (click)="onAddNewSubFolder($event)"
+        (click)="onAddNewSubFolder($event, params?.allFromNameSpace)"
       >
         <mat-icon>add</mat-icon>
       </button>

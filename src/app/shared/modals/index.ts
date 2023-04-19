@@ -1,3 +1,7 @@
 import { NewFolderModalComponent } from './new-folder-modal/new-folder-modal.component';
+import { NewSubFolderModalComponent } from './new-sub-folder-modal/new-sub-folder-modal.component';
 
-export const sharedModals: any[] = [NewFolderModalComponent];
+export const sharedModals: any[] = [
+  NewFolderModalComponent,
+  NewSubFolderModalComponent,
+];

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { DatastoreService } from 'src/app/core/services/datastore.service';
+import { NewSubFolderModalComponent } from 'src/app/shared/modals/new-sub-folder-modal/new-sub-folder-modal.component';
 
 @Component({
   selector: 'app-sub-folder',
@@ -14,11 +16,16 @@ export class SubFolderComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private datastoreService: DatastoreService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
     this.nameSpace = this.activatedRoute.snapshot.params['id'];
+    this.getAllNameSpaceData();
+  }
+
+  getAllNameSpaceData(): void {
     this.allFromNameSpace$ = this.datastoreService.getAllFromNameSpace(
       'userDataStore/' + 'FOLDER:' + this.nameSpace
     );
@@ -26,14 +33,26 @@ export class SubFolderComponent implements OnInit {
 
   onChangeRoute(event: Event, subFolder: any): void {
     event.stopPropagation();
-    console.log(subFolder);
     this.router.navigate([
       'documents/' + this.nameSpace + '/' + subFolder?.key,
     ]);
   }
 
-  onAddNewSubFolder(event: Event): void {
+  onAddNewSubFolder(event: Event, allFromNameSpace: any): void {
     event.stopPropagation();
-    console.log(this.nameSpace);
+    this.dialog
+      .open(NewSubFolderModalComponent, {
+        width: '35%',
+        data: {
+          nameSpace: this.nameSpace,
+          allFromNameSpace,
+        },
+      })
+      .afterClosed()
+      .subscribe((shouldReload: boolean) => {
+        if (shouldReload) {
+          this.getAllNameSpaceData();
+        }
+      });
   }
 }

@@ -77,6 +77,13 @@ export class DatastoreService {
     );
   }
 
+  getUserDatastoreKeyData(nameSpace: string, key: string): Observable<any> {
+    return this.httpClient.get(`userDataStore/${nameSpace}/${key}`).pipe(
+      map((response: any) => response),
+      catchError((error: any) => of(error))
+    );
+  }
+
   getDataViaKey(keys: string[], nameSpace: string): Observable<any[]> {
     let data = [];
     let errors = {};
