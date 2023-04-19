@@ -50,11 +50,6 @@ export class HomeComponent implements OnInit {
     }, 100);
   }
 
-  onAddNewSubFolder(event: Event): void {
-    event.stopPropagation();
-    console.log(this.currentNameSpace);
-  }
-
   openSnackBar() {
     this._snackBar.open('This is working', 'OK', {
       duration: 2000,

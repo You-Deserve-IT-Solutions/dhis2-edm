@@ -25,9 +25,10 @@ export class DocumentsComponent implements OnInit {
   }
 
   getDocuments(): void {
-    this.documents$ = this.datastoreService.findByKeys(this.nameSpace, [
-      this.key,
-    ]);
+    this.documents$ = this.datastoreService.findByKeys(
+      'FOLDER:' + this.nameSpace,
+      [this.key]
+    );
   }
 
   onAddResource(event: Event): void {

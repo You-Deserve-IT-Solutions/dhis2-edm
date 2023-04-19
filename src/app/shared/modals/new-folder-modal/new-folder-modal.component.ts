@@ -61,7 +61,7 @@ export class NewFolderModalComponent implements OnInit {
     const data = {
       folderName: this.formData?.name?.value,
       folderDescription: this.formData?.description?.value,
-      nameSpace: this.formData?.name?.value?.replaceAll(/\s/g, ''),
+      nameSpace: 'FOLDER:' + this.formData?.name?.value?.replaceAll(/\s/g, ''),
       key: 'default',
       keyName: 'Default',
       keyNameDescription: 'Default sub folder',

@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { DatastoreService } from 'src/app/core/services/datastore.service';
 import { NewFolderModalComponent } from '../../modals/new-folder-modal/new-folder-modal.component';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-side-menu-list',
@@ -28,8 +29,17 @@ export class SideMenuListComponent implements OnInit {
   }
 
   getUserDataStoreNameSpaces(): void {
-    this.userDataStoreNameSpaces$ =
-      this.dataStoreService.getUserDataStoreNameSpaces();
+    this.userDataStoreNameSpaces$ = this.dataStoreService
+      .getUserDataStoreNameSpaces()
+      .pipe(
+        map((response: any) =>
+          (
+            (response || [])?.filter(
+              (nameSpace) => nameSpace?.indexOf('FOLDER') > -1
+            ) || []
+          ).map((nameSpace) => nameSpace?.replace('FOLDER:', ''))
+        )
+      );
     if (!this.currentNameSpace) {
       this.userDataStoreNameSpaces$.subscribe((responses: any[]) => {
         this.selectedMenu.emit(responses[0]);

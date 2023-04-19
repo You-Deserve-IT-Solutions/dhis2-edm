@@ -20,7 +20,7 @@ export class SubFolderComponent implements OnInit {
   ngOnInit(): void {
     this.nameSpace = this.activatedRoute.snapshot.params['id'];
     this.allFromNameSpace$ = this.datastoreService.getAllFromNameSpace(
-      'userDataStore/' + this.nameSpace
+      'userDataStore/' + 'FOLDER:' + this.nameSpace
     );
   }
 
@@ -30,5 +30,10 @@ export class SubFolderComponent implements OnInit {
     this.router.navigate([
       'documents/' + this.nameSpace + '/' + subFolder?.key,
     ]);
+  }
+
+  onAddNewSubFolder(event: Event): void {
+    event.stopPropagation();
+    console.log(this.nameSpace);
   }
 }
