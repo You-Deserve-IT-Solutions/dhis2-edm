@@ -1,0 +1,20 @@
+<div class="w-100" *ngIf="{ currentUser: currentUser$ | async } as params">
+  <div class="h4">Upload resource</div>
+  <div class="loading-overlay" *ngIf="saving">
+    <div class="text-center">
+      <div>Saving document...</div>
+      <div class="mt-3 d-flex justify-content-center w-100">
+        <mat-spinner diameter="50" strokeWidth="2"></mat-spinner>
+      </div>
+    </div>
+  </div>
+  <div class="w-100">
+    <mat-progress-bar *ngIf="!params?.currentUser"></mat-progress-bar>
+    <app-resource-form
+      [currentUser]="params?.currentUser"
+      [linkToBackTo]="linkToBackTo"
+      (closeModal)="onCloseModal($event)"
+      (documentResourceData)="onGetDocumentData($event)"
+    ></app-resource-form>
+  </div>
+</div>

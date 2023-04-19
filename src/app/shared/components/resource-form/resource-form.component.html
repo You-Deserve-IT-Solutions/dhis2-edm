@@ -1,0 +1,88 @@
+<div style="margin-top: 20px" class="row">
+  <div class="col-md-12">
+    <form [formGroup]="formResource">
+      <mat-form-field class="form-element w-100">
+        <input matInput placeholder="Name*" formControlName="name" />
+        <mat-error *ngIf="!name.valid && name.touched">
+          {{ nameAlert }}
+        </mat-error>
+      </mat-form-field>
+      <br />
+
+      <mat-radio-group aria-label="Type of resource" formControlName="type">
+        <mat-radio-button value="url" (click)="resetLinkOrFile()"
+          >Link/Address</mat-radio-button
+        >
+        <mat-radio-button
+          style="margin-left: 10px"
+          value="doc"
+          (click)="resetLinkOrFile()"
+          >Document/File</mat-radio-button
+        >
+      </mat-radio-group>
+      <br />
+
+      <div *ngIf="formResource.value.type == 'doc'">
+        <input
+          type="file"
+          style="border: none; background-color: transparent"
+          class="form-control"
+          name="file"
+          accept=".pdf, .doc, .xls, .xlsx, .zip"
+          id="fileSelector"
+          (change)="fileSelection($event)"
+        /><span *ngIf="requiredField" style="color: red; font-style: italic">
+          Required
+        </span>
+      </div>
+      <mat-form-field
+        class="form-element w-100"
+        *ngIf="formResource.value.type == 'url'"
+      >
+        <input
+          matInput
+          placeholder="Address*"
+          placeholder="Url: eg. https://example.com"
+          formControlName="url"
+        />
+        <mat-error *ngIf="!url.valid && url.touched">
+          {{ addressAlert }}
+        </mat-error>
+      </mat-form-field>
+      <br />
+
+      <div class="buttons d-flex justify-content-end">
+        <button mat-stroked-button id="cancel" (click)="onGetBack($event)">
+          Cancel
+        </button>
+        <button
+          mat-flat-button
+          color="primary"
+          (click)="save(formResource.value)"
+          [disabled]="
+            !formResource.value.type ||
+            (formResource.value.type && formResource.value.type == '') ||
+            !formResource.value.name ||
+            (!formResource.value.url && !file) ||
+            (!file && formResource.value.type == 'doc') ||
+            (file &&
+              formResource.value.type == 'url' &&
+              !formResource.value.url)
+          "
+          class="ml-2"
+        >
+          Save
+        </button>
+      </div>
+    </form>
+    <div class="success-div w-100" *ngIf="statusMessage && statusMessage != ''">
+      <p>{{ statusMessage }}</p>
+    </div>
+    <div
+      class="error-div w-100"
+      *ngIf="statusErrorMessage && statusErrorMessage != ''"
+    >
+      <p>{{ statusErrorMessage }}</p>
+    </div>
+  </div>
+</div>

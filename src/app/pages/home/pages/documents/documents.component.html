@@ -1,10 +1,15 @@
 <div class="w-100" *ngIf="{ documents: documents$ | async } as params">
   <div class="row">
     <div class="col-12">
-      <button mat-flat-button color="primary" (click)="onBack($event)">
-        <mat-icon class="mr-2">arrow_back</mat-icon>
-        <mat-label>Back To list</mat-label>
-      </button>
+      <div class="d-flex justify-content-left">
+        <button mat-flat-button color="primary" (click)="onBack($event)">
+          <mat-icon class="mr-2">arrow_back</mat-icon>
+          <mat-label>Back To list</mat-label>
+        </button>
+        <span class="ml-2 text-muted" style="margin-top: 6px">
+          {{ params?.documents?.data[0]?.keyName }}
+        </span>
+      </div>
     </div>
   </div>
   <mat-progress-bar
@@ -12,16 +17,86 @@
     *ngIf="!params?.documents"
   ></mat-progress-bar>
   <div class="row mt-2">
+    <div class="loading-overlay" *ngIf="deleting">
+      <div class="text-center">
+        <div>Deleting ...</div>
+        <div class="mt-3 d-flex justify-content-center w-100">
+          <mat-spinner diameter="50" strokeWidth="2"></mat-spinner>
+        </div>
+      </div>
+    </div>
     <div class="col-12">
-      {{ params?.documents | json }}
+      <table class="table table-striped mat-elevation-z1">
+        <thead>
+          <tr>
+            <th style="width: 20px">SN</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th style="width: 20px"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let document of params?.documents?.data[0]?.documents;
+              let count = index
+            "
+          >
+            <td>
+              {{ count + 1 }}
+            </td>
+            <td>
+              {{ document?.name }}
+            </td>
+            <td>
+              {{ document?.type === 'UPLOAD_FILE' ? 'FILE' : 'LINK' }}
+            </td>
+            <td>
+              <button
+                mat-icon-button
+                [matMenuTriggerFor]="menu"
+                matTooltip="More actions on resource"
+              >
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button
+                  mat-menu-item
+                  *ngIf="!document?.external"
+                  (click)="openResource(document)"
+                >
+                  <mat-icon>cloud_download</mat-icon>
+                  <span>Download</span>
+                </button>
+                <button
+                  mat-menu-item
+                  *ngIf="document?.external"
+                  (click)="openResource(document)"
+                >
+                  <mat-icon>link</mat-icon>
+                  <span>View</span>
+                </button>
+                <button
+                  mat-menu-item
+                  (click)="deleteResource(document, params?.documents?.data[0])"
+                >
+                  <mat-icon>delete</mat-icon>
+                  <span>Delete</span>
+                </button>
+              </mat-menu>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <div class="col-12">
       <div class="d-flex justify-content-end">
         <button
           title="New sub folder"
           mat-icon-button
+          [disabled]="!params?.documents"
           color="primary"
-          (click)="onAddResource($event)"
+          (click)="onAddResource($event, params?.documents?.data[0])"
         >
           <mat-icon>add</mat-icon>
         </button>

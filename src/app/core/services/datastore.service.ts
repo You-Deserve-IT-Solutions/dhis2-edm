@@ -49,6 +49,17 @@ export class DatastoreService {
       );
   }
 
+  updateUserDataStoreKey(data): Observable<any> {
+    return this.httpClient
+      .put(`userDataStore/${data?.nameSpace}/${data?.key}`, data)
+      .pipe(
+        map((response: any) => {
+          return response;
+        }),
+        catchError((error) => of(error))
+      );
+  }
+
   deleteUserDataStoreKey(nameSpace: string, key: string): Observable<any> {
     return this.httpClient.delete(`userDataStore/${nameSpace}/${key}`).pipe(
       map((response: any) => {
