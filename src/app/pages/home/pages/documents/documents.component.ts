@@ -41,7 +41,7 @@ export class DocumentsComponent implements OnInit {
     event.stopPropagation();
     this.dialog
       .open(ResourceModalComponent, {
-        width: '40%',
+        minWidth: '40%',
         data: keyData,
       })
       .afterClosed()

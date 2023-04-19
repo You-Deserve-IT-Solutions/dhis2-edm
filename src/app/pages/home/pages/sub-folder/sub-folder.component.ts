@@ -43,7 +43,7 @@ export class SubFolderComponent implements OnInit {
     event.stopPropagation();
     this.dialog
       .open(NewSubFolderModalComponent, {
-        width: '35%',
+        minWidth: '35%',
         data: {
           nameSpace: this.nameSpace,
           allFromNameSpace,

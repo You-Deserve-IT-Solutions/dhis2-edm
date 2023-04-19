@@ -60,7 +60,7 @@ export class SideMenuListComponent implements OnInit {
   onAddNewFolder(): void {
     this.dialog
       .open(NewFolderModalComponent, {
-        width: '35%',
+        minWidth: '35%',
       })
       .afterClosed()
       .subscribe((shouldReload) => {
