@@ -16,6 +16,7 @@ export class DocumentsComponent implements OnInit {
   nameSpace: string;
   documents$: Observable<any>;
   deleting: boolean = false;
+  currentResource: any;
   constructor(
     private datastoreService: DatastoreService,
     private router: Router,
@@ -81,5 +82,15 @@ export class DocumentsComponent implements OnInit {
         this.deleting = false;
       }
     });
+  }
+
+  getThisResource(event: Event, resource: any, isLink: boolean): void {
+    event.stopPropagation();
+    window.open(`../../../api/documents/${resource?.id}/data`, '_blank');
+  }
+
+  setCurrentResource(event: any, resource: any): void {
+    console.log(event);
+    this.currentResource = resource;
   }
 }

@@ -9,3 +9,8 @@
     overflow: auto;
   }
 }
+
+button,
+button:hover {
+  outline: none !important;
+}

@@ -12,10 +12,6 @@
       </div>
     </div>
   </div>
-  <mat-progress-bar
-    mode="indeterminate"
-    *ngIf="!params?.documents"
-  ></mat-progress-bar>
   <div class="row mt-2">
     <div class="loading-overlay" *ngIf="deleting">
       <div class="text-center">
@@ -36,11 +32,23 @@
           </tr>
         </thead>
         <tbody>
+          <ng-container *ngIf="!params?.documents">
+            <tr>
+              <td colspan="100%">
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+              </td>
+            </tr>
+          </ng-container>
           <tr
             *ngFor="
               let document of params?.documents?.data[0]?.documents;
               let count = index
             "
+            (click)="getThisResource($event, document, document?.external)"
+            style="cursor: pointer"
+            [ngClass]="{
+              'active-doc-list': currentResource?.id === document?.id
+            }"
           >
             <td>
               {{ count + 1 }}
@@ -49,7 +57,11 @@
               {{ document?.name }}
             </td>
             <td>
-              {{ document?.type === 'UPLOAD_FILE' ? 'FILE' : 'LINK' }}
+              <!-- {{ document?.type === 'UPLOAD_FILE' ? 'FILE' : 'LINK' }} -->
+              <mat-icon *ngIf="document?.type === 'UPLOAD_FILE'"
+                >file_copy</mat-icon
+              >
+              <mat-icon *ngIf="document?.type !== 'UPLOAD_FILE'">link</mat-icon>
             </td>
             <td>
               <button
@@ -86,6 +98,18 @@
               </mat-menu>
             </td>
           </tr>
+          <ng-container
+            *ngIf="params?.documents?.data[0]?.documents?.length == 0"
+          >
+            <tr>
+              <td colspan="100%">
+                <div class="alert alert-warning" role="alert">
+                  There is no file in this sub-folder. You can add a file via a
+                  plus sign
+                </div>
+              </td>
+            </tr>
+          </ng-container>
         </tbody>
       </table>
     </div>

@@ -4,17 +4,28 @@
     userDataStoreNameSpaces: userDataStoreNameSpaces$ | async
   } as params"
 >
-  <div class="h5 mt-2">Folders</div>
+  <div class="h5 mt-4">Folders</div>
+  <hr style="margin-top: 4px; margin-bottom: 8px" />
   <mat-progress-bar *ngIf="!params?.userDataStoreNameSpaces"></mat-progress-bar>
-  <ul>
-    <li
-      [ngClass]="{ 'active-menu': activeMenu === menu }"
-      (click)="onSetMenu($event, menu)"
+  <div class="w-100" style="margin-top: -16px">
+    <div
+      class="w-100"
+      style="margin-top: -8px"
       *ngFor="let menu of params?.userDataStoreNameSpaces"
     >
-      {{ menu }}
-    </li>
-  </ul>
+      <button
+        mat-icon-button
+        class="folder-btn"
+        [ngClass]="{ 'active-menu': activeMenu === menu }"
+        (click)="onSetMenu($event, menu)"
+      >
+        <mat-icon>folder</mat-icon>
+        <span class="m-2" style="margin-top: -8px !important">
+          {{ menu }}
+        </span>
+      </button>
+    </div>
+  </div>
 
   <div class="d-flex justify-content-end">
     <button

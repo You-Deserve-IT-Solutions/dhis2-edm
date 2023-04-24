@@ -4,12 +4,20 @@ ul {
 }
 
 ul li {
-  padding: 8px;
-  margin-left: -16px;
   cursor: pointer;
   border-top: solid 1px #eee;
 }
 
+.folder-btn {
+  padding: 8px;
+  margin-left: -8px;
+}
+
 .active-menu {
   color: #2587cc;
+}
+
+button,
+button:hover {
+  outline: none !important;
 }
