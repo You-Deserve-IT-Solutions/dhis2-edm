@@ -52,7 +52,6 @@ export class NewFolderModalComponent implements OnInit {
   onGetFormData(formValue: FormValue): void {
     this.isFormValid = formValue.isValid;
     this.formData = formValue.getValues();
-    console.log(this.formData?.name?.value?.replaceAll(/\s/g, ''));
   }
 
   onSave(event: Event): void {
