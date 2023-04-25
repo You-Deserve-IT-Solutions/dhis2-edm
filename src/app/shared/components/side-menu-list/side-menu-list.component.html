@@ -19,7 +19,12 @@
         [ngClass]="{ 'active-menu': activeMenu === menu }"
         (click)="onSetMenu($event, menu)"
       >
-        <mat-icon>folder</mat-icon>
+        <mat-icon
+          style="font-size: 20px"
+          class=""
+          [ngClass]="{ 'text-muted': activeMenu !== menu }"
+          >folder</mat-icon
+        >
         <span class="m-2" style="margin-top: -8px !important">
           {{ menu }}
         </span>
