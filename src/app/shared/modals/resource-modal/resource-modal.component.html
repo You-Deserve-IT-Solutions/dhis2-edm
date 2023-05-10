@@ -11,10 +11,11 @@
   <div class="w-100">
     <mat-progress-bar *ngIf="!params?.currentUser"></mat-progress-bar>
     <app-resource-form
+      *ngIf="params?.currentUser"
       [currentUser]="params?.currentUser"
       [linkToBackTo]="linkToBackTo"
       (closeModal)="onCloseModal($event)"
-      (documentResourceData)="onGetDocumentData($event)"
+      (documentResourceData)="onGetDocumentData($event, params?.currentUser)"
     ></app-resource-form>
   </div>
 </div>

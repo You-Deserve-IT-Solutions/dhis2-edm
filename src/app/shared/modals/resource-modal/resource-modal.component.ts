@@ -1,8 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, zip } from 'rxjs';
 import { DatastoreService } from 'src/app/core/services/datastore.service';
+import { ResourcesService } from 'src/app/core/services/resources.service';
 import { State } from 'src/app/store/reducers';
 import { getCurrentUser } from 'src/app/store/selectors';
 
@@ -19,7 +20,8 @@ export class ResourceModalComponent implements OnInit {
     private dialogRef: MatDialogRef<ResourceModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data,
     private store: Store<State>,
-    private datastoreService: DatastoreService
+    private datastoreService: DatastoreService,
+    private resourcesService: ResourcesService
   ) {}
 
   ngOnInit(): void {
@@ -40,23 +42,35 @@ export class ResourceModalComponent implements OnInit {
     this.dialogRef.close(shouldReload);
   }
 
-  onGetDocumentData(documentData: any[]): void {
+  onGetDocumentData(documentData: any, currentUser?: any): void {
     const data = {
       ...this.data,
       documents: [...this.data?.documents, documentData],
     };
     this.saving = true;
-    this.datastoreService
-      .updateUserDataStoreKey(data)
-      .subscribe((response: any) => {
-        if (response) {
-          this.saving = false;
-          setTimeout(() => {
-            this.dialogRef.close(true);
-          }, 200);
-        } else {
-          this.saving = false;
-        }
-      });
+    const sharingSettings = {
+      meta: { allowPublicAccess: false, allowExternalAccess: false },
+      object: {
+        id: documentData?.id,
+        publicAccess: '--------',
+        user: { id: currentUser?.id },
+        userGroupAccesses: [],
+        userAccesses: [],
+        externalAccess: false,
+      },
+    };
+    zip(
+      this.datastoreService.updateUserDataStoreKey(data),
+      this.resourcesService.saveSharingSettingsForDocuments(sharingSettings)
+    ).subscribe((response: any) => {
+      if (response) {
+        this.saving = false;
+        setTimeout(() => {
+          this.dialogRef.close(true);
+        }, 200);
+      } else {
+        this.saving = false;
+      }
+    });
   }
 }
